@@ -296,7 +296,7 @@ class BiliBili:
 
             if rep["code"] == 0:
                 # 如果分享成功, 退出循环, 并返回分享的视频名
-                success(f"分享视频完成, [{video['title']}]")
+             #   success(f"分享视频完成, [{video['title']}]")
 
                 return video["title"]
             else:
