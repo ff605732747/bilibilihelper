@@ -23,7 +23,7 @@ jobs:
 
       - name: init
         env:
-          cookie: ${{ secrets.COOKIE }}
+          COOKIE: ${{ secrets.COOKIE }}
         run: |
           cd src
-          python index.py ${env:cookie}
+          python index.py 
