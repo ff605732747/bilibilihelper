@@ -50,7 +50,6 @@ class BiliBili:
     }
 
     def __init__(self, **config) -> None:
-        self.cookie = sys.argv[1]
         self.cookie = os.environ.get('cookie')
         self.options = config.get("options", {})
 
