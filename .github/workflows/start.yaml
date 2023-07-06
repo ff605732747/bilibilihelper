@@ -9,13 +9,16 @@ jobs:
     runs-on: windows-2019
     steps:
       - name: checkout actions
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
-      - name: Python 3.7.4
+      - name: init python
+        uses: actions/setup-python@v4
         with:
           python-version: 3.7.4
-          cache: 'pip' # caching pip dependencies
-        run: pip install -r requirements.txt
+          cache: "pip" # caching pip dependencies
+      - name: pip
+        run: |
+          pip install -r requirements.txt
 
       - name: init
         env:
