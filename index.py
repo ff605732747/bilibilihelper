@@ -3,6 +3,7 @@ from config import config
 from push import PushSender, parse
 import sys
 
+
 def parse_message(message, push_type):
     if push_type == "pushplus":
         return parse(message, template="html")
@@ -46,7 +47,6 @@ def main(*args):
     if len(messages) != 0 and push_together is not None:
         pushMessage(messages, push_together)
 
-  
+
 if __name__ == "__main__":
     main()
-  
