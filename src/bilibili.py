@@ -50,6 +50,7 @@ class BiliBili:
 
     def __init__(self, **config) -> None:
         self.cookie = sys.argv[1]
+        print(sys.argv)
         self.options = config.get("options", {})
 
         self.sid = BiliBili.extract("sid", self.cookie)
@@ -404,7 +405,7 @@ class BiliBili:
     @handler
     def start(self):
         self.get_user_info()  # 获取用户信息
-
+        return
         videos = self.video_suggest()  # 获取热门视频
 
         return {
