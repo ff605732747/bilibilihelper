@@ -4,7 +4,6 @@ from tools import failed, handler, info, success
 from datetime import datetime
 import time
 import sys
-import os
 
 # 获取视频信息地址
 VIDEO_INFO = "https://api.bilibili.com/x/web-interface/view"
@@ -50,7 +49,7 @@ class BiliBili:
     }
 
     def __init__(self, **config) -> None:
-        self.cookie = os.environ.get('COOKIE')
+        self.cookie = config.get("cookie")
         self.options = config.get("options", {})
 
         self.sid = BiliBili.extract("sid", self.cookie)
@@ -114,7 +113,7 @@ class BiliBili:
                 self.coin = data["coins"]  # 硬币数
                 self.exp = f"{current_exp}/{next_exp}"  # 经验
                 self.silence = data["silence"]  # 不知道是什么
-                
+
                 success(f"获取用户信息成功, 用户: {self.name}")
             else:
                 raise Exception(rep["message"])
@@ -242,7 +241,7 @@ class BiliBili:
         surplus = 0 if surplus < 0 else surplus
 
         info(f"还需投币 {surplus} 个")
-        
+
         coin_videos = []
 
         for video in videos:
@@ -334,7 +333,8 @@ class BiliBili:
                     "start_ts": int(time.time()),
                 }
 
-                rep = req.post(VIDEO_HEARTBEAT, data=data, headers=self.headers).json()
+                rep = req.post(VIDEO_HEARTBEAT, data=data,
+                               headers=self.headers).json()
 
                 if rep["code"] == 0:
                     # 模拟观看视频
@@ -395,7 +395,7 @@ class BiliBili:
                 if t.date() == today:
                     if i["delta"] < 0:
                         res += -i["delta"]
-            
+
             success(f"获取硬币投递情况成功, 当前已投币 {res} 个")
         else:
             failed("获取投币情况失败")
@@ -405,6 +405,7 @@ class BiliBili:
     @handler
     def start(self):
         self.get_user_info()  # 获取用户信息
+
         videos = self.video_suggest()  # 获取热门视频
 
         return {
