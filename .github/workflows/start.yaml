@@ -6,24 +6,25 @@ on:
 
 jobs:
   _BILIBLI:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
     steps:
-      - name: checkout actions
-        uses: actions/checkout@v1
-
-      - name: init python
-        uses: actions/setup-python@v1
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.10
-          cache: "pip" # caching pip dependencies
-      - name: pip
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
         run: |
-          cd src
-          pip install -r requirements.txt
+          python -m pip install --upgrade pip
+          pip install ruff pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: init
         env:
           COOKIE: ${{ secrets.COOKIE }}
         run: |
           cd src
-          python index.py 
+          python index.py
