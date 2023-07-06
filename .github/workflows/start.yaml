@@ -16,4 +16,4 @@ jobs:
         env:
           cookie: ${{ secrets.COOKIE }}
         run: |
-          python index.py ${cookie}
+          python ../../index.py ${cookie}
