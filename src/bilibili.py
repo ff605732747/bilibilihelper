@@ -4,6 +4,7 @@ from tools import failed, handler, info, success
 from datetime import datetime
 import time
 import sys
+import os
 
 # 获取视频信息地址
 VIDEO_INFO = "https://api.bilibili.com/x/web-interface/view"
@@ -49,8 +50,8 @@ class BiliBili:
     }
 
     def __init__(self, **config) -> None:
-        self.cookie = sys.argv
-        print(sys.argv)
+        self.cookie = sys.argv[1]
+        self.cookie = os.environ.get('cookie')
         self.options = config.get("options", {})
 
         self.sid = BiliBili.extract("sid", self.cookie)

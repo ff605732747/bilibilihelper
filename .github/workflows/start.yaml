@@ -26,4 +26,4 @@ jobs:
           cookie: ${{ secrets.COOKIE }}
         run: |
           cd src
-          python index.py ${cookie}
+          python index.py ${env:cookie}
