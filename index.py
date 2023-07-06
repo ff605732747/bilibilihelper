@@ -32,18 +32,7 @@ def main(*args):
     messages = []
 
     for item in accounts:
-        obj = BiliBili(**item)
-
-        res = obj.start()
-
-        push = item.get("push")
-
-        if push is None:
-            if push_together is not None:
-                messages.extend(res)
-        else:
-            pushMessage(res, push)
-
+        BiliBili(**item)
     if len(messages) != 0 and push_together is not None:
         pushMessage(messages, push_together)
 
