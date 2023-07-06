@@ -40,6 +40,7 @@ TO_COIN = "https://api.live.bilibili.com/xlive/revenue/v1/wallet/silver2coin"
 # 获取当日投币情况
 COIN_LOG = " https://api.bilibili.com/x/member/web/coin/log"
 
+import os
 
 class BiliBili:
     headers = {
@@ -50,6 +51,7 @@ class BiliBili:
 
     def __init__(self, **config) -> None:
         self.cookie = config.get("cookie")
+        # self.cookie = os.environ.get("COOKIE")
         self.options = config.get("options", {})
 
         self.sid = BiliBili.extract("sid", self.cookie)
