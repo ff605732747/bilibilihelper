@@ -1,0 +1,19 @@
+name: Bilibili
+on:
+  push:
+  schedule:
+    - cron: "0 22 * * *"
+
+jobs:
+  _BILIBLI:
+    runs-on: windows-2019
+    steps:
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: init
+        env:
+          cookie: ${{ secrets.COOKIE }}
+        run: |
+          python index.py ${cookie}
